@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block title %} Adopt Homepage {% endblock %} {%
+block content %}
+<h1>Adopt</h1>
+{% for msg in get_flashed_messages() %}
+<p>{{ msg }}</p>
+{% endfor %}
+
+<h2 class="m-4">Available Pets</h2>
+<div class="row">
+  {% for pet in pets %} {% if pet.is_available%}
+  <div class="col">
+    <img src="{{ pet.photo_url }}" alt="" width="200px" height="200px" />
+    <p><a href="/{{pet.id}}/edit">{{ pet.name }}</a> is available</p>
+  </div>
+  {% endif %} {% endfor %}
+</div>
+<a href="/add">Add</a>
+
+<h2 class="m-4">No-Longer-Available</h2>
+<div class="row">
+  {% for pet in pets %} {% if not pet.is_available%}
+  <div class="col">
+    <img src="{{ pet.photo_url }}" alt="" width="200px" height="200px" />
+    <p><a href="/{{pet.id}}/edit">{{ pet.name }}</a> is unavailable</p>
+  </div>
+  {% endif %} {% endfor %}
+</div>
+
+{% endblock %}
